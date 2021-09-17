@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-09-17T05:57:12.650Z</updated>
+  <updated>2021-09-17T07:09:43.409Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,12 +17,19 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>11111</title>
-    <link href="http://example.com/2021/09/17/11111/"/>
-    <id>http://example.com/2021/09/17/11111/</id>
-    <published>2021-09-17T05:57:06.000Z</published>
-    <updated>2021-09-17T05:57:12.650Z</updated>
+    <title>hexo 安装说明</title>
+    <link href="http://example.com/2021/09/17/hexo-%E5%AE%89%E8%A3%85%E8%AF%B4%E6%98%8E/"/>
+    <id>http://example.com/2021/09/17/hexo-%E5%AE%89%E8%A3%85%E8%AF%B4%E6%98%8E/</id>
+    <published>2021-09-17T06:52:39.000Z</published>
+    <updated>2021-09-17T07:09:43.409Z</updated>
     
+    <content type="html"><![CDATA[<p>安装参考 <a href="https://zhuanlan.zhihu.com/p/26625249">https://zhuanlan.zhihu.com/p/26625249</a><br><a href="https://segmentfault.com/a/1190000017986794">https://segmentfault.com/a/1190000017986794</a><br>hexo 文档 <a href="https://hexo.io/zh-cn/docs/">https://hexo.io/zh-cn/docs/</a><br>docker 部署<br>docker run -d  –name=blog –restart unless-stopped <br>–net=macnet  –ip 172.17.17.177 <br>-e HEXO_SERVER_PORT=80 <br>-e GIT_USER=”ajiansh” <br>-e GIT_EMAIL=”<a href="mailto:ajiansh@qq.com">ajiansh@qq.com</a>“ <br>-v /srv/data/blog:/app <br>spurin/hexo<br>或镜像bloodstar/hexo<br>耐心等待下载文件 下载完成才可以浏览<br>docker logs –follow ajiansh.github.io 查看日志进程<br>或镜像docker run -it –rm  –name hexo –net=macnet  –ip 172.17.17.178 -v $PWD:/workdir -w /workdir xyzzpwn/hexo bash<br>已经镜像hexo 环境已经创建好了<br>自己安装如下命令<br>npm install -g hexo-cli<br>npm install hexo-deployer-git –save  #安装-deployer-git 上传部署工具<br>npm install hexo -g #安装Hexo<br>npm update hexo -g #升级<br>hexo init #初始化博客</p><p>命令简写<br>hexo n “我的博客” == hexo new “我的博客” #新建文章<br>hexo g == hexo generate #生成<br>hexo s == hexo server #启动服务预览<br>hexo d == hexo deploy #部署</p><p>hexo server #Hexo会监视文件变动并自动更新，无须重启服务器<br>hexo server -s #静态模式<br>hexo server -p 5000 #更改端口<br>hexo server -i 192.168.1.1 #自定义 IP<br>hexo clean #清除缓存，若是网页正常情况下可以忽略这条命令</p><p>部署到Github<br>先修改 _config.yml 文件末尾的 Deployment 部分，修改成如下：<br>deploy:</p><ul><li>type: git<br>repo: <a href="mailto:git@github.com">git@github.com</a>:ajiansh/ajiansh.github.io.git<br>branch: main #对于HUB上目录</li></ul><p>ssh认证：配置 SSH key<br>钥匙目录~/.ssh  如果有 先删除 rm -r ~/.ssh<br>如果之前没有创建过，则执行以下命令全局配置一下本地账户<br>（上面启动镜像已配置好账号忽略此步）<br>git config –global user.name “ajiansh”<br>git config –global user.email “<a href="mailto:ajiansh@qq.com">ajiansh@qq.com</a>“<br>生成 ssh-keygen -t rsa -C “<a href="mailto:ajiansh@qq.com">ajiansh@qq.com</a>“<br>查看密钥 并复制出来 cat ~/.ssh/id_rsa.pub<br>登录 Github 上添加刚刚生成的SSH key<br>测试连接 ssh -T <a href="mailto:git@github.com">git@github.com</a><br>若返回 Hi xxx! You’ve successfully authenticated, but GitHub does not provide shell access. 内容，则证明添加成功。</p><p>错误  Warning: Permanently added the RSA host key for IP address ‘13.250.177.223’ to the list of known hosts.<br>在本地/etc/hosts 文件中添加： 13.250.177.223    github.com</p><p>为hexo添加hexo-admin组件<br>插件介绍<br>hexo-admin 是一个Hexo博客引擎的管理用户界面插件。这个插件最初是作为本地编辑器设计的，在本地运行hexo使用hexo-admin编写文章，然后通过hexo g或hexo d（hexo g是本地渲染，hexo d是将渲染的静态页面发布到GitHub）将生成的静态页面发布到GitHub等静态服务器。如果你使用的是非静态托管服务器，比如自己买的主机搭建的hexo，那么一定要设置hexo-admin 的密码，否则谁都可以编辑你的文章。<br>插件安装  npm install –save hexo-admin<br><a href="http://host/admin">http://host/admin</a> 就可以后台管理了</p><p>主题<br>安装nexo 主题<br>参考 <a href="https://github.com/theme-next/hexo-theme-next/blob/master/docs/INSTALLATION.md">https://github.com/theme-next/hexo-theme-next/blob/master/docs/INSTALLATION.md</a><br>$ mkdir themes/next<br>$ curl -s <a href="https://api.github.com/repos/theme-next/hexo-theme-next/releases/latest">https://api.github.com/repos/theme-next/hexo-theme-next/releases/latest</a> | grep tarball_url | cut -d ‘“‘ -f 4 | wget -i - -O- | tar -zx -C themes/next –strip-components=1<br>_config.yml<br>theme: next<br>或安装其他主题 其他方式<br>git clone -b master <a href="https://github.com/Molunerfinn/hexo-theme-melody">https://github.com/Molunerfinn/hexo-theme-melody</a> themes/melody #-b master 指仓库分支</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;安装参考 &lt;a href=&quot;https://zhuanlan.zhihu.com/p/26625249&quot;&gt;https://zhuanlan.zhihu.com/p/26625249&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://segmentfault.com/a/119</summary>
+      
     
     
     
